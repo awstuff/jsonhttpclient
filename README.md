@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A class for executing HTTP GET and POST requests.
+A Java class for executing HTTP GET and POST requests via Android.
 Maps returned json values to objects and objects used as request parameters to json.
 
 Requires Google's Gson (https://github.com/google/gson) and Volley (https://android.googlesource.com/platform/frameworks/volley).
