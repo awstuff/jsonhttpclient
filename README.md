@@ -20,7 +20,7 @@ In order to execute requests, a `RequestQueue` (https://developer.android.com/tr
 Example:
 
 ```java
-JsonHttpMapper<MyObject> j = new JsonHttpMapper<> (MyObject.class, Start.this);
+JsonHttpMapper<MyObject> j = new JsonHttpMapper<> (MyObject.class, this);
 
 j.postAndGetObject ("http://sample.url", new OtherObject ("postdata1", "postdata2"), new JsonHttpMapper.Callback<MyObject> () {
 	@Override
