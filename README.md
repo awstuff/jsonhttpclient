@@ -31,7 +31,6 @@ j.postAndGetObject ("http://sample.url", new OtherObject ("postdata1", "postdata
 });
 
 j.getList ("http://some.other.url", new JsonHttpMapper.Callback<List<MyObject>> () {
-
 	@Override
 	public void done (boolean success, List<MyObject> result) {
 		// process list
