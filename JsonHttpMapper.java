@@ -2,6 +2,7 @@ package wirth.adrian.http;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -78,7 +79,7 @@ public class JsonHttpMapper<T> {
 	 */
 	public void getList (String url, final @Nullable Callback callback) {
 
-		this.requestList (JsonObjectRequest.Method.GET, url, null, callback);
+		this.requestList (JsonArrayRequest.Method.GET, url, null, callback);
 	}
 
 	/**
@@ -102,7 +103,7 @@ public class JsonHttpMapper<T> {
 	 */
 	public void postAndGetList (String url, Object data, final @Nullable Callback callback) {
 
-		this.requestList (JsonObjectRequest.Method.POST, url, data, callback);
+		this.requestList (JsonArrayRequest.Method.POST, url, data, callback);
 	}
 
 	/**
