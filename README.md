@@ -1,4 +1,6 @@
-# JsonHttpMapper
+# JsonHttpClient
+
+UPDATED README WILL FOLLOW SOON, THE BELOW ONE IS DEPRECATED!
 
 ## Introduction
 
