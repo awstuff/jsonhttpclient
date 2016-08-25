@@ -92,7 +92,7 @@ public class JsonHttpClient<T> {
 	 */
 	public void getObject (@NonNull String url, final @Nullable Callback<T> callback) {
 
-        this.getObject(url, null, HttpURLConnection.HTTP_OK, callback);
+		this.getObject(url, null, HttpURLConnection.HTTP_OK, callback);
 		// this.requestObject (JsonHttpClient.HTTP_METHOD_GET, url, null, HttpURLConnection.HTTP_OK, callback);
 	}
 
@@ -118,7 +118,7 @@ public class JsonHttpClient<T> {
 	 */
 	public void getObject (@NonNull String url, @Nullable Map<String, String> headers, final @Nullable Callback<T> callback) {
 
-        this.getObject(url, headers, HttpURLConnection.HTTP_OK, callback);
+		this.getObject(url, headers, HttpURLConnection.HTTP_OK, callback);
 		// this.requestObject (JsonHttpClient.HTTP_METHOD_GET, url, null, HttpURLConnection.HTTP_OK, callback);
 	}
 
@@ -143,7 +143,7 @@ public class JsonHttpClient<T> {
 	 */
 	public void getList (@NonNull String url, final @Nullable Callback<List<T>> callback) {
 
-        this.getList(url, HttpURLConnection.HTTP_OK, callback);
+		this.getList(url, HttpURLConnection.HTTP_OK, callback);
 		// this.requestList (JsonHttpClient.HTTP_METHOD_GET, url, null, HttpURLConnection.HTTP_OK, callback);
 	}
 
@@ -159,7 +159,7 @@ public class JsonHttpClient<T> {
 		this.requestList (JsonHttpClient.HTTP_METHOD_GET, url, null, expectedResponseCode, callback);
 	}
 
-    /**
+	/**
 	 * Send a DELETE request to the specified url and receive an object of type T
 	 *
 	 * @param url the web resource's url
@@ -167,7 +167,7 @@ public class JsonHttpClient<T> {
 	 */
 	public void deleteAndGetObject (@NonNull String url, final @Nullable Callback<T> callback) {
 
-        this.deleteAndGetObject(url, HttpURLConnection.HTTP_OK, callback);
+		this.deleteAndGetObject(url, HttpURLConnection.HTTP_OK, callback);
 		// this.requestObject (JsonHttpClient.HTTP_METHOD_DELETE, url, null, HttpURLConnection.HTTP_OK, callback);
 	}
 
@@ -191,7 +191,7 @@ public class JsonHttpClient<T> {
 	 */
 	public void deleteAndGetList (@NonNull String url, final @Nullable Callback<List<T>> callback) {
 
-        this.deleteAndGetList(url, HttpURLConnection.HTTP_OK, callback);
+		this.deleteAndGetList(url, HttpURLConnection.HTTP_OK, callback);
 		// this.requestList (JsonHttpClient.HTTP_METHOD_DELETE, url, null, HttpURLConnection.HTTP_OK, callback);
 	}
 
@@ -216,7 +216,7 @@ public class JsonHttpClient<T> {
 	 */
 	public void postAndGetObject (@NonNull String url, @Nullable Map<String, String> payload, final @Nullable Callback<T> callback) {
 
-        this.postAndGetObject(url, payload, HttpURLConnection.HTTP_OK, callback);
+		this.postAndGetObject(url, payload, HttpURLConnection.HTTP_OK, callback);
 		// this.requestObject (JsonHttpClient.HTTP_METHOD_POST, url, payload, HttpURLConnection.HTTP_OK, callback);
 	}
 
@@ -242,7 +242,7 @@ public class JsonHttpClient<T> {
 	 */
 	public void postAndGetList (@NonNull String url, @Nullable Map<String, String> payload, final @Nullable Callback<List<T>> callback) {
 
-        this.postAndGetList(url, payload, HttpURLConnection.HTTP_OK, callback);
+		this.postAndGetList(url, payload, HttpURLConnection.HTTP_OK, callback);
 		// this.requestList (JsonHttpClient.HTTP_METHOD_POST, url, payload, HttpURLConnection.HTTP_OK, callback);
 	}
 
@@ -259,7 +259,7 @@ public class JsonHttpClient<T> {
 		this.requestList (JsonHttpClient.HTTP_METHOD_POST, url, payload, expectedResponseCode, callback);
 	}
 
-    /**
+	/**
 	 * Send a PUT request containing the specified data to the specified url and receive an object of type T
 	 *
 	 * @param url the web resource's url
@@ -268,7 +268,7 @@ public class JsonHttpClient<T> {
 	 */
 	public void putAndGetObject (@NonNull String url, @Nullable Map<String, String> payload, final @Nullable Callback<T> callback) {
 
-        this.putAndGetObject(url, payload, HttpURLConnection.HTTP_OK, callback);
+		this.putAndGetObject(url, payload, HttpURLConnection.HTTP_OK, callback);
 		// this.requestObject (JsonHttpClient.HTTP_METHOD_PUT, url, payload, HttpURLConnection.HTTP_OK, callback);
 	}
 
@@ -294,7 +294,7 @@ public class JsonHttpClient<T> {
 	 */
 	public void putAndGetList (@NonNull String url, @Nullable Map<String, String> payload, final @Nullable Callback<List<T>> callback) {
 
-        this.putAndGetList(url, payload, HttpURLConnection.HTTP_OK, callback);
+		this.putAndGetList(url, payload, HttpURLConnection.HTTP_OK, callback);
 		// this.requestList (JsonHttpClient.HTTP_METHOD_PUT, url, payload, HttpURLConnection.HTTP_OK, callback);
 	}
 
@@ -322,7 +322,7 @@ public class JsonHttpClient<T> {
 	 */
 	public void uploadFileUsingPostAndGetObject (@NonNull String url, @NonNull File file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, final @Nullable Callback callback) {
 
-        this.uploadFileUsingPostAndGetObject(url, file, fileFieldName, payload, HttpURLConnection.HTTP_OK, callback);
+		this.uploadFileUsingPostAndGetObject(url, file, fileFieldName, payload, HttpURLConnection.HTTP_OK, callback);
 		// this.uploadAndRequestObject (JsonHttpClient.HTTP_METHOD_POST, url, file, fileFieldName, payload, HttpURLConnection.HTTP_OK, callback);
 	}
 
@@ -352,7 +352,7 @@ public class JsonHttpClient<T> {
 	 */
 	public void uploadFileUsingPutAndGetList (@NonNull String url, @NonNull File file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, final @Nullable Callback<List<T>> callback) {
 
-        this.uploadFileUsingPutAndGetList(url, file, fileFieldName, payload, HttpURLConnection.HTTP_OK, callback);
+		this.uploadFileUsingPutAndGetList(url, file, fileFieldName, payload, HttpURLConnection.HTTP_OK, callback);
 		// this.uploadAndRequestList (JsonHttpClient.HTTP_METHOD_PUT, url, file, fileFieldName, payload, HttpURLConnection.HTTP_OK, callback);
 	}
 
@@ -710,7 +710,7 @@ public class JsonHttpClient<T> {
 
 			try {
 				responseInputStream = httpsConnection.getInputStream ();
-			} catch (FileNotFoundException ex) {    // response is empty
+			} catch (FileNotFoundException ex) {	// response is empty
 				responseIsEmpty = true;
 			}
 		} else {
@@ -723,7 +723,7 @@ public class JsonHttpClient<T> {
 
 			try {
 				responseInputStream = httpConnection.getInputStream ();
-			} catch (FileNotFoundException ex) {    // response is empty
+			} catch (FileNotFoundException ex) {	// response is empty
 				responseIsEmpty = true;
 			}
 		}
