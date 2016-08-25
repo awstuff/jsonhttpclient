@@ -1,41 +1,78 @@
-# JsonHttpClient
+# JsonHttpClient - An easy-to-use, fully featured, response-parsing HTTP client for Android
 
-UPDATED README WILL FOLLOW SOON, THE BELOW ONE IS DEPRECATED!
+THIS README IS STILL WORK IN PROGRESS - TODO `PUT` (like `POST`) and `DELETE` (like `GET`) support
 
 ## Introduction
 
-A Java class for executing HTTP GET and POST requests via Android.
-Maps returned json values to objects and objects used as request parameters to json.
+This library consists of two Java classes: `JsonHttpClient` for executing HTTP(S) requests via Android and parsing the response into native Java objects, and `HttpResponseCodeManager` for registering event listeners that are called if a request returns with a specific response code.
 
-Requires Google's Gson (https://github.com/google/gson) and Volley (https://android.googlesource.com/platform/frameworks/volley).
+`JsonHttpClient`supports HTTPS, including SNI (https://en.wikipedia.org/wiki/Server_Name_Indication), and automatically detects whether to use HTTPS or plain HTTP.
 
-In order to execute requests, a `RequestQueue` (https://developer.android.com/training/volley/requestqueue.html) is needed. To fulfill that requirement, `RequestQueueProvider.java` was created, but can be replaced by a similar solution (`JsonHttpMapper.java` has to be edited in this case).
+You could use `HttpResponseCodeManager` individually (although that would not make much sense). `JsonHttpClient` cannot be used individually, since it depends on `HttpResponseCodeManager`.
 
-## Usage
+This library requires Google's Gson (https://github.com/google/gson) and Apache's HttpComponents (https://hc.apache.org/). You can simply add these dependencies to your project's `build.gradle` file.
 
-`JsonHttpMapper` provides four methods:
-- `getObject` sends a GET request to the specified url and returns an object
-- `getList` sends a GET request to the specified url and returns a list of objects
-- `postAndGetObject` sends a POST request containing the specified data to the specified url and returns an object
-- `postAndGetList` sends a POST request containing the specified data to the specified url and returns a list of objects
+## Usage of `JsonHttpClient`
 
-Example:
+### Features
+
+`JsonHttpClient` provides the following methods:
+- `getObject` to send a GET request to the specified url and receive a Java object
+- `getList` to send a GET request to the specified url and receive a list of Java objects
+- `postAndGetObject` to send a POST request to the specified url, submitting the specified data, and receive a Java object
+- `postAndGetList` to send a POST request to the specified url, submitting the specified data, and receive a list of Java objects
+- `putAndGetObject` to send a PUT request to the specified url, submitting the specified data, and receive a Java object
+- `putAndGetList` to send a PUT request to the specified url, submitting the specified data, and receive a list of Java objects
+- `deleteAndGetObject` to send a DELETE request to the specified url and receive a Java object
+- `deleteAndGetList` to send a DELETE request to the specified url and receive a list of Java objects
+- `uploadFileUsingPostAndGetObject` to upload a file to the specified url via a POST request, submitting the specified data, and receive a Java object
+- `uploadFileUsingPostAndGetList` to upload a file to the specified url via a POST request, submitting the specified data, and receive a list of Java objects
+- `uploadFileUsingPutAndGetObject` to upload a file to the specified url via a PUT request, submitting the specified data, and receive a Java object
+- `uploadFileUsingPutAndGetList` to upload a file to the specified url via a PUT request, submitting the specified data, and receive a list of Java objects
+
+### Examples
+
+Execute a GET request and receive an object of `MyClass` as a response:
 
 ```java
-JsonHttpMapper<MyObject> j = new JsonHttpMapper<> (MyObject.class, this);
+// JsonHttpClient<MyClass> client = new JsonHttpClient<> (MyClass.class);
+//
+// client.postAndGetObject ("http://sample.url", new OtherObject ("postdata1", "postdata2"), new JsonHttpMapper.Callback<MyObject> () {
+// 	@Override
+// 	public void done (boolean success, MyObject result) {
+// 		Log.d ("success", Boolean.toString (success));
+// 		Log.d ("result", result.toString());
+// 	}
+// });
+//
+// client.getList ("http://some.other.url", new JsonHttpMapper.Callback<List<MyObject>> () {
+// 	@Override
+// 	public void done (boolean success, List<MyObject> result) {
+// 		// process list
+// 	}
+// });
+```
 
-j.postAndGetObject ("http://sample.url", new OtherObject ("postdata1", "postdata2"), new JsonHttpMapper.Callback<MyObject> () {
-	@Override
-	public void done (boolean success, MyObject result) {
-		Log.d ("success", Boolean.toString (success));
-		Log.d ("result", result.toString());
-	}
-});
+Execute a POST request with some data (could also just be `null`) via HTTPS and receive a list of `MyClass` objects as a response:
 
-j.getList ("http://some.other.url", new JsonHttpMapper.Callback<List<MyObject>> () {
-	@Override
-	public void done (boolean success, List<MyObject> result) {
-		// process list
-	}
-});
+```java
+
+```
+
+Upload a file along with some data (could also just be `null`) using a PUT request and receive an object of `MyClass` as a response:
+
+```java
+
+```
+
+## Usage of `HttpResponseCodeManager`
+
+Say you want to execute a specific action every time a HTTP request by `JsonHttpClient` returns with a specific response code. For example, you might want to switch to a special activity every time the response code `403 Forbidden` is received.
+
+`HttpResponseCodeManager` allows you to do this by registering event listeners for response codes. It is really simple to use, just take a look at this example:
+
+```java
+HttpResponseCodeManager manager = HttpResponseCodeManager.getInstance();
+
+// blabla
 ```
