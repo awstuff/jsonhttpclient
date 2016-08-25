@@ -38,6 +38,8 @@ public class JsonHttpClient<T> {
 	private static final String CHARSET = "UTF-8";
 	private static final String HTTP_METHOD_GET = "GET";
 	private static final String HTTP_METHOD_POST = "POST";
+	private static final String HTTP_METHOD_PUT = "PUT";
+	private static final String HTTP_METHOD_DELETE = "DELETE";
 
 	private Class<T> target;
 
@@ -90,7 +92,8 @@ public class JsonHttpClient<T> {
 	 */
 	public void getObject (@NonNull String url, final @Nullable Callback<T> callback) {
 
-		this.requestObject (JsonHttpClient.HTTP_METHOD_GET, url, null, HttpURLConnection.HTTP_OK, callback);
+        this.getObject(url, HttpURLConnection.HTTP_OK, callback);
+		// this.requestObject (JsonHttpClient.HTTP_METHOD_GET, url, null, HttpURLConnection.HTTP_OK, callback);
 	}
 
 	/**
@@ -113,7 +116,8 @@ public class JsonHttpClient<T> {
 	 */
 	public void getList (@NonNull String url, final @Nullable Callback<List<T>> callback) {
 
-		this.requestList (JsonHttpClient.HTTP_METHOD_GET, url, null, HttpURLConnection.HTTP_OK, callback);
+        this.getList(url, HttpURLConnection.HTTP_OK, callback);
+		// this.requestList (JsonHttpClient.HTTP_METHOD_GET, url, null, HttpURLConnection.HTTP_OK, callback);
 	}
 
 	/**
@@ -128,23 +132,72 @@ public class JsonHttpClient<T> {
 		this.requestList (JsonHttpClient.HTTP_METHOD_GET, url, null, expectedResponseCode, callback);
 	}
 
-	/**
-	 * Send a POST request containing the specified data to the specified url and receive an object of type T
+    /**
+	 * Send a DELETE request to the specified url and receive an object of type T
 	 *
 	 * @param url the web resource's url
-	 * @param payload map to send as POST data
 	 * @param callback callback implementation, can be null
 	 */
-	public void postAndGetObject (@NonNull String url, @Nullable Map<String, String> payload, final @Nullable Callback<T> callback) {
+	public void deleteAndGetObject (@NonNull String url, final @Nullable Callback<T> callback) {
 
-		this.requestObject (JsonHttpClient.HTTP_METHOD_POST, url, payload, HttpURLConnection.HTTP_OK, callback);
+        this.deleteAndGetObject(url, HttpURLConnection.HTTP_OK, callback);
+		// this.requestObject (JsonHttpClient.HTTP_METHOD_DELETE, url, null, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Send a DELETE request to the specified url and receive an object of type T
+	 *
+	 * @param url the web resource's url
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	public void deleteAndGetObject (@NonNull String url, int expectedResponseCode, final @Nullable Callback<T> callback) {
+
+		this.requestObject (JsonHttpClient.HTTP_METHOD_DELETE, url, null, expectedResponseCode, callback);
+	}
+
+	/**
+	 * Send a DELETE request to the specified url and receive a list of objects of type T
+	 *
+	 * @param url the web resource's url
+	 * @param callback callback implementation, can be null
+	 */
+	public void deleteAndGetList (@NonNull String url, final @Nullable Callback<List<T>> callback) {
+
+        this.deleteAndGetList(url, HttpURLConnection.HTTP_OK, callback);
+		// this.requestList (JsonHttpClient.HTTP_METHOD_DELETE, url, null, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Send a DELETE request to the specified url and receive a list of objects of type T
+	 *
+	 * @param url the web resource's url
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	public void deleteAndGetList (@NonNull String url, int expectedResponseCode, final @Nullable Callback<List<T>> callback) {
+
+		this.requestList (JsonHttpClient.HTTP_METHOD_DELETE, url, null, expectedResponseCode, callback);
 	}
 
 	/**
 	 * Send a POST request containing the specified data to the specified url and receive an object of type T
 	 *
 	 * @param url the web resource's url
-	 * @param payload map to send as POST data
+	 * @param payload map to send as request data
+	 * @param callback callback implementation, can be null
+	 */
+	public void postAndGetObject (@NonNull String url, @Nullable Map<String, String> payload, final @Nullable Callback<T> callback) {
+
+        this.postAndGetObject(url, payload, HttpURLConnection.HTTP_OK, callback);
+		// this.requestObject (JsonHttpClient.HTTP_METHOD_POST, url, payload, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Send a POST request containing the specified data to the specified url and receive an object of type T
+	 *
+	 * @param url the web resource's url
+	 * @param payload map to send as request data
 	 * @param expectedResponseCode the expected HTTP response code
 	 * @param callback callback implementation, can be null
 	 */
@@ -157,19 +210,20 @@ public class JsonHttpClient<T> {
 	 * Send a POST request containing the specified data to the specified url and receive a list of objects of type T
 	 *
 	 * @param url the web resource's url
-	 * @param payload map to send as POST data
+	 * @param payload map to send as request data
 	 * @param callback callback implementation, can be null
 	 */
 	public void postAndGetList (@NonNull String url, @Nullable Map<String, String> payload, final @Nullable Callback<List<T>> callback) {
 
-		this.requestList (JsonHttpClient.HTTP_METHOD_POST, url, payload, HttpURLConnection.HTTP_OK, callback);
+        this.postAndGetList(url, payload, HttpURLConnection.HTTP_OK, callback);
+		// this.requestList (JsonHttpClient.HTTP_METHOD_POST, url, payload, HttpURLConnection.HTTP_OK, callback);
 	}
 
 	/**
 	 * Send a POST request containing the specified data to the specified url and receive a list of objects of type T
 	 *
 	 * @param url the web resource's url
-	 * @param payload map to send as POST data
+	 * @param payload map to send as request data
 	 * @param expectedResponseCode the expected HTTP response code
 	 * @param callback callback implementation, can be null
 	 */
@@ -178,18 +232,56 @@ public class JsonHttpClient<T> {
 		this.requestList (JsonHttpClient.HTTP_METHOD_POST, url, payload, expectedResponseCode, callback);
 	}
 
-	/**
-	 * Upload the specified file as part of a POST request containing the specified data to the specified url and receive an object of type T
+    /**
+	 * Send a PUT request containing the specified data to the specified url and receive an object of type T
 	 *
 	 * @param url the web resource's url
-	 * @param file the file to upload
-	 * @param fileFieldName the name under which the file can be accessed by the web resource
-	 * @param payload map to send as POST data
+	 * @param payload map to send as request data
 	 * @param callback callback implementation, can be null
 	 */
-	public void uploadFileAndGetObject (@NonNull String url, @NonNull File file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, final @Nullable Callback callback) {
+	public void putAndGetObject (@NonNull String url, @Nullable Map<String, String> payload, final @Nullable Callback<T> callback) {
 
-		this.uploadAndRequestObject (JsonHttpClient.HTTP_METHOD_POST, url, file, fileFieldName, payload, HttpURLConnection.HTTP_OK, callback);
+        this.putAndGetObject(url, payload, HttpURLConnection.HTTP_OK, callback);
+		// this.requestObject (JsonHttpClient.HTTP_METHOD_PUT, url, payload, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Send a PUT request containing the specified data to the specified url and receive an object of type T
+	 *
+	 * @param url the web resource's url
+	 * @param payload map to send as request data
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	public void putAndGetObject (@NonNull String url, @Nullable Map<String, String> payload, int expectedResponseCode, final @Nullable Callback<T> callback) {
+
+		this.requestObject (JsonHttpClient.HTTP_METHOD_PUT, url, payload, expectedResponseCode, callback);
+	}
+
+	/**
+	 * Send a PUT request containing the specified data to the specified url and receive a list of objects of type T
+	 *
+	 * @param url the web resource's url
+	 * @param payload map to send as request data
+	 * @param callback callback implementation, can be null
+	 */
+	public void putAndGetList (@NonNull String url, @Nullable Map<String, String> payload, final @Nullable Callback<List<T>> callback) {
+
+        this.putAndGetList(url, payload, HttpURLConnection.HTTP_OK, callback);
+		// this.requestList (JsonHttpClient.HTTP_METHOD_PUT, url, payload, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Send a PUT request containing the specified data to the specified url and receive a list of objects of type T
+	 *
+	 * @param url the web resource's url
+	 * @param payload map to send as request data
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	public void putAndGetList (@NonNull String url, @Nullable Map<String, String> payload, int expectedResponseCode, final @Nullable Callback<List<T>> callback) {
+
+		this.requestList (JsonHttpClient.HTTP_METHOD_PUT, url, payload, expectedResponseCode, callback);
 	}
 
 	/**
@@ -198,42 +290,58 @@ public class JsonHttpClient<T> {
 	 * @param url the web resource's url
 	 * @param file the file to upload
 	 * @param fileFieldName the name under which the file can be accessed by the web resource
-	 * @param payload map to send as POST data
+	 * @param payload map to send as request data
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPostAndGetObject (@NonNull String url, @NonNull File file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, final @Nullable Callback callback) {
+
+        this.uploadFileUsingPostAndGetObject(url, file, fileFieldName, payload, HttpURLConnection.HTTP_OK, callback);
+		// this.uploadAndRequestObject (JsonHttpClient.HTTP_METHOD_POST, url, file, fileFieldName, payload, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a POST request containing the specified data to the specified url and receive an object of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
 	 * @param expectedResponseCode the expected HTTP response code
 	 * @param callback callback implementation, can be null
 	 */
-	public void uploadFileAndGetObject (@NonNull String url, @NonNull File file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, int expectedResponseCode, final @Nullable Callback callback) {
+	public void uploadFileUsingPostAndGetObject (@NonNull String url, @NonNull File file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, int expectedResponseCode, final @Nullable Callback callback) {
 
 		this.uploadAndRequestObject (JsonHttpClient.HTTP_METHOD_POST, url, file, fileFieldName, payload, expectedResponseCode, callback);
 	}
 
 	/**
-	 * Upload the specified file as part of a POST request containing the specified data to the specified url and receive a list of objects of type T
+	 * Upload the specified file as part of a PUT request containing the specified data to the specified url and receive a list of objects of type T
 	 *
 	 * @param url the web resource's url
 	 * @param file the file to upload
 	 * @param fileFieldName the name under which the file can be accessed by the web resource
-	 * @param payload map to send as POST data
+	 * @param payload map to send as request data
 	 * @param callback callback implementation, can be null
 	 */
-	public void uploadFileAndGetList (@NonNull String url, @NonNull File file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, final @Nullable Callback<List<T>> callback) {
+	public void uploadFileUsingPutAndGetList (@NonNull String url, @NonNull File file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, final @Nullable Callback<List<T>> callback) {
 
-		this.uploadAndRequestList (JsonHttpClient.HTTP_METHOD_POST, url, file, fileFieldName, payload, HttpURLConnection.HTTP_OK, callback);
+        this.uploadFileUsingPutAndGetList(url, file, fileFieldName, payload, HttpURLConnection.HTTP_OK, callback);
+		// this.uploadAndRequestList (JsonHttpClient.HTTP_METHOD_PUT, url, file, fileFieldName, payload, HttpURLConnection.HTTP_OK, callback);
 	}
 
 	/**
-	 * Upload the specified file as part of a POST request containing the specified data to the specified url and receive a list of objects of type T
+	 * Upload the specified file as part of a PUT request containing the specified data to the specified url and receive a list of objects of type T
 	 *
 	 * @param url the web resource's url
 	 * @param file the file to upload
 	 * @param fileFieldName the name under which the file can be accessed by the web resource
-	 * @param payload map to send as POST data
+	 * @param payload map to send as request data
 	 * @param expectedResponseCode the expected HTTP response code
 	 * @param callback callback implementation, can be null
 	 */
-	public void uploadFileAndGetList (@NonNull String url, @NonNull File file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, int expectedResponseCode, final @Nullable Callback<List<T>> callback) {
+	public void uploadFileUsingPutAndGetList (@NonNull String url, @NonNull File file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, int expectedResponseCode, final @Nullable Callback<List<T>> callback) {
 
-		this.uploadAndRequestList (JsonHttpClient.HTTP_METHOD_POST, url, file, fileFieldName, payload, expectedResponseCode, callback);
+		this.uploadAndRequestList (JsonHttpClient.HTTP_METHOD_PUT, url, file, fileFieldName, payload, expectedResponseCode, callback);
 	}
 
 	/**
