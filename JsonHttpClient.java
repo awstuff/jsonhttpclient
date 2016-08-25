@@ -92,7 +92,7 @@ public class JsonHttpClient<T> {
 	 */
 	public void getObject (@NonNull String url, final @Nullable Callback<T> callback) {
 
-        this.getObject(url, HttpURLConnection.HTTP_OK, callback);
+        this.getObject(url, null, HttpURLConnection.HTTP_OK, callback);
 		// this.requestObject (JsonHttpClient.HTTP_METHOD_GET, url, null, HttpURLConnection.HTTP_OK, callback);
 	}
 
@@ -104,6 +104,33 @@ public class JsonHttpClient<T> {
 	 * @param callback callback implementation, can be null
 	 */
 	public void getObject (@NonNull String url, int expectedResponseCode, final @Nullable Callback<T> callback) {
+
+		this.getObject (url, null, expectedResponseCode, callback);
+		// this.requestObject (JsonHttpClient.HTTP_METHOD_GET, url, null, expectedResponseCode, callback);
+	}
+
+	/**
+	 * Send a GET request to the specified url and receive an object of type T
+	 *
+	 * @param url the web resource's url
+	 * @param headers map to send as additional HTTP headers
+	 * @param callback callback implementation, can be null
+	 */
+	public void getObject (@NonNull String url, @Nullable Map<String, String> headers, final @Nullable Callback<T> callback) {
+
+        this.getObject(url, headers, HttpURLConnection.HTTP_OK, callback);
+		// this.requestObject (JsonHttpClient.HTTP_METHOD_GET, url, null, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Send a GET request to the specified url and receive an object of type T
+	 *
+	 * @param url the web resource's url
+	 * @param headers map to send as additional HTTP headers
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	public void getObject (@NonNull String url, @Nullable Map<String, String> headers, int expectedResponseCode, final @Nullable Callback<T> callback) {
 
 		this.requestObject (JsonHttpClient.HTTP_METHOD_GET, url, null, expectedResponseCode, callback);
 	}
@@ -350,10 +377,11 @@ public class JsonHttpClient<T> {
 	 * @param method HTTP method to use
 	 * @param url the web resource's url
 	 * @param payload map to send as request data
+	 * @param headers map to send as additional HTTP headers
 	 * @param expectedResponseCode the expected HTTP response code
 	 * @param callback callback implementation, can be null
 	 */
-	private void requestObject (String method, String url, Map<String, String> payload, int expectedResponseCode, final Callback<T> callback) {
+	private void requestObject (String method, String url, Map<String, String> payload, Map<String, String> headers, int expectedResponseCode, final Callback<T> callback) {
 
 		this.requestRaw (method, url, payload, expectedResponseCode, new InternalCallback () {
 
@@ -372,10 +400,11 @@ public class JsonHttpClient<T> {
 	 * @param file the file to upload
 	 * @param fileFieldName the name under which the file can be accessed by the web resource
 	 * @param payload map to send as request data
+	 * @param headers map to send as additional HTTP headers
 	 * @param expectedResponseCode the expected HTTP response code
 	 * @param callback callback implementation, can be null
 	 */
-	private void uploadAndRequestObject (String method, String url, File file, String fileFieldName, Map<String, String> payload, int expectedResponseCode, final Callback<T> callback) {
+	private void uploadAndRequestObject (String method, String url, File file, String fileFieldName, Map<String, String> payload, Map<String, String> headers, int expectedResponseCode, final Callback<T> callback) {
 
 		this.uploadRequestRaw (method, url, file, fileFieldName, payload, expectedResponseCode, new InternalCallback () {
 

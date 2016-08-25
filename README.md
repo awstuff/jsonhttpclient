@@ -1,6 +1,6 @@
 # JsonHttpClient - An easy-to-use, fully featured, response-parsing HTTP client for Android
 
-THIS README IS STILL WORK IN PROGRESS - TODO `PUT` (like `POST`) and `DELETE` (like `GET`) support
+THIS README IS STILL WORK IN PROGRESS
 
 ## Introduction
 
@@ -65,7 +65,7 @@ Execute a GET request and receive an object of `MyClass` as a response:
 // });
 ```
 
-Execute a POST request with some data (could also just be `null`) via HTTPS and receive a list of `MyClass` objects as a response:
+Execute a POST request with some data and additional headers (both could also just be `null`) via HTTPS and receive a list of `MyClass` objects as a response:
 
 ```java
 
