@@ -17,17 +17,29 @@ This library requires Google's Gson (https://github.com/google/gson) and Apache'
 ### Features
 
 `JsonHttpClient` provides the following methods:
+
 - `getObject` to send a GET request to the specified url and receive a Java object
+
 - `getList` to send a GET request to the specified url and receive a list of Java objects
+
 - `postAndGetObject` to send a POST request to the specified url, submitting the specified data, and receive a Java object
+
 - `postAndGetList` to send a POST request to the specified url, submitting the specified data, and receive a list of Java objects
+
 - `putAndGetObject` to send a PUT request to the specified url, submitting the specified data, and receive a Java object
+
 - `putAndGetList` to send a PUT request to the specified url, submitting the specified data, and receive a list of Java objects
+
 - `deleteAndGetObject` to send a DELETE request to the specified url and receive a Java object
+
 - `deleteAndGetList` to send a DELETE request to the specified url and receive a list of Java objects
+
 - `uploadFileUsingPostAndGetObject` to upload a file to the specified url via a POST request, submitting the specified data, and receive a Java object
+
 - `uploadFileUsingPostAndGetList` to upload a file to the specified url via a POST request, submitting the specified data, and receive a list of Java objects
+
 - `uploadFileUsingPutAndGetObject` to upload a file to the specified url via a PUT request, submitting the specified data, and receive a Java object
+
 - `uploadFileUsingPutAndGetList` to upload a file to the specified url via a PUT request, submitting the specified data, and receive a list of Java objects
 
 ### Examples
