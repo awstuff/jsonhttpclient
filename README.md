@@ -56,6 +56,7 @@ client.getObject ("http://www.example.org/api/test", new JsonHttpClient.Callback
 });
 ```
 
+
 Execute a POST request with some data and additional headers (both could also just be `null`) via HTTPS and receive a list of `MyClass` objects as a response:
 
 ```java
@@ -77,6 +78,7 @@ client.postAndGetList ("https://secure.example.org/api/test", data, headers, new
 });
 ```
 
+
 Upload a file along with some data (could also just be `null`) using a PUT request and receive an object of `MyClass` as a response. In this example, the file will be accessible to the server as `myFile` (specified via parameter):
 
 ```java
@@ -97,13 +99,16 @@ client.uploadFileUsingPutAndGetObject ("http://www.example.org/api/test", file, 
 });
 ```
 
+
 *Note:* If you expect any other HTTP response code than `200 OK` when your request has returned successfully, you should specify it via the optional parameter `expectedResponseCode` available on every method. This is because otherwise, `JsonHttpClient` expects the response code to be `200` and aborts parsing if it is anything else.
+
+
 
 ## Usage of `HttpResponseCodeManager`
 
 Say you want to execute a specific action every time a HTTP request by `JsonHttpClient` returns with a specific response code. For example, you might want to switch to a special activity every time the response code `403 Forbidden` is received.
 
-`HttpResponseCodeManager` allows you to do this by registering event listeners for response codes. It is really simple to use, just take a look at this example:
+`HttpResponseCodeManager` allows you to do this by registering global event listeners for response codes. It is really simple to use, just take a look at this example:
 
 ```java
 HttpResponseCodeManager manager = HttpResponseCodeManager.getInstance();
