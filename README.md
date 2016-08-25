@@ -62,8 +62,8 @@ Execute a POST request with some data and additional headers (both could also ju
 JsonHttpClient<MyClass> client = new JsonHttpClient<> (MyClass.class);
 
 Map<String, String> data = new HashMap<> ();
-data.put("favouriteFruit", "Apple");
-data.put("favouriteColor", "green");
+data.put("favoriteFruit", "Apple");
+data.put("favoriteColor", "green");
 
 Map<String, String> headers = new HashMap<> ();
 headers.put ("My-Custom-Header", "Some value");
@@ -83,8 +83,8 @@ Upload a file along with some data (could also just be `null`) using a PUT reque
 JsonHttpClient<MyClass> client = new JsonHttpClient<> (MyClass.class);
 
 Map<String, String> data = new HashMap<> ();
-data.put("favouriteFruit", "Apple");
-data.put("favouriteColor", "green");
+data.put("favoriteFruit", "Apple");
+data.put("favoriteColor", "green");
 
 File file = new File("/storage/abc123/test.txt");
 
