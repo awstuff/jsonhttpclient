@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import com.google.gson.Gson;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
@@ -43,6 +44,7 @@ public class JsonHttpClient<T> {
 	private static final String HTTP_METHOD_DELETE = "DELETE";
 
 	private Class<T> target;
+	private boolean debug;
 
 	/**
 	 * Constructor
@@ -50,8 +52,18 @@ public class JsonHttpClient<T> {
 	 * @param target the returned object's class
 	 */
 	public JsonHttpClient (Class<T> target) {
+		this (target, false);
+	}
 
+	/**
+	 * Constructor
+	 *
+	 * @param target the returned object's class
+	 * @param debug log debug messages
+	 */
+	public JsonHttpClient (Class<T> target, boolean debug) {
 		this.target = target;
+		this.debug = debug;
 	}
 
 	/**
@@ -1070,6 +1082,7 @@ public class JsonHttpClient<T> {
 			HttpsURLConnection httpsConnection = (HttpsURLConnection) connection;
 
 //			httpsConnection.setRequestMethod (method);
+
 			httpsConnection.connect ();
 			statusCode = httpsConnection.getResponseCode ();
 
@@ -1091,6 +1104,10 @@ public class JsonHttpClient<T> {
 			} catch (FileNotFoundException ex) {	// response is empty
 				responseIsEmpty = true;
 			}
+		}
+
+		if (JsonHttpClient.this.debug) {
+			Log.d("JsonHttpClient", "Response Code: " + statusCode);
 		}
 
 		HttpResponseCodeManager manager = HttpResponseCodeManager.getInstance ();
@@ -1121,6 +1138,10 @@ public class JsonHttpClient<T> {
 			reader.close ();
 
 			responseText = stringBuilder.toString ();
+		}
+
+		if (JsonHttpClient.this.debug) {
+			Log.d("JsonHttpClient", "Response Text: " + responseText);
 		}
 
 		if (callback != null) {
