@@ -1,7 +1,5 @@
 # JsonHttpClient - An easy-to-use, fully featured, response-parsing HTTP client for Android
 
-THIS README IS STILL WORK IN PROGRESS
-
 ## Introduction
 
 This library consists of two Java classes: `JsonHttpClient` for executing HTTP(S) requests via Android and parsing the response into native Java objects, and `HttpResponseCodeManager` for registering event listeners that are called if a request returns with a specific response code.
@@ -16,7 +14,7 @@ This library requires Google's Gson (https://github.com/google/gson) and Apache'
 
 ### Features
 
-`JsonHttpClient` provides the following methods:
+`JsonHttpClient` provides the following methods (each one overloaded a few times):
 
 - `getObject` to send a GET request to the specified url and receive a Java object
 
@@ -47,44 +45,79 @@ This library requires Google's Gson (https://github.com/google/gson) and Apache'
 Execute a GET request and receive an object of `MyClass` as a response:
 
 ```java
-// JsonHttpClient<MyClass> client = new JsonHttpClient<> (MyClass.class);
-//
-// client.postAndGetObject ("http://sample.url", new OtherObject ("postdata1", "postdata2"), new JsonHttpMapper.Callback<MyObject> () {
-// 	@Override
-// 	public void done (boolean success, MyObject result) {
-// 		Log.d ("success", Boolean.toString (success));
-// 		Log.d ("result", result.toString());
-// 	}
-// });
-//
-// client.getList ("http://some.other.url", new JsonHttpMapper.Callback<List<MyObject>> () {
-// 	@Override
-// 	public void done (boolean success, List<MyObject> result) {
-// 		// process list
-// 	}
-// });
+JsonHttpClient<MyClass> client = new JsonHttpClient<> (MyClass.class);
+                
+client.getObject ("http://www.example.org/api/test", new JsonHttpClient.Callback<MyClass> () {
+    
+    @Override
+    public void done (boolean success, MyClass result) {
+        // do something with the result
+    }
+});
 ```
+
 
 Execute a POST request with some data and additional headers (both could also just be `null`) via HTTPS and receive a list of `MyClass` objects as a response:
 
 ```java
+JsonHttpClient<MyClass> client = new JsonHttpClient<> (MyClass.class);
 
+Map<String, String> data = new HashMap<> ();
+data.put("favoriteFruit", "Apple");
+data.put("favoriteColor", "green");
+
+Map<String, String> headers = new HashMap<> ();
+headers.put ("My-Custom-Header", "Some value");
+
+client.postAndGetList ("https://secure.example.org/api/test", data, headers, new JsonHttpClient.Callback<List<MyClass>> () {
+    
+    @Override
+    public void done (boolean success, List<MyClass> result) {
+        // do something with the result
+    }
+});
 ```
 
-Upload a file along with some data (could also just be `null`) using a PUT request and receive an object of `MyClass` as a response:
+
+Upload a file along with some data (could also just be `null`) using a PUT request and receive an object of `MyClass` as a response. In this example, the file will be accessible to the server as `myFile` (specified via parameter):
 
 ```java
+JsonHttpClient<MyClass> client = new JsonHttpClient<> (MyClass.class);
 
+Map<String, String> data = new HashMap<> ();
+data.put("favoriteFruit", "Apple");
+data.put("favoriteColor", "green");
+
+File file = new File("/storage/abc123/test.txt");
+
+client.uploadFileUsingPutAndGetObject ("http://www.example.org/api/test", file, "myFile", data, new JsonHttpClient.Callback<MyClass> () {
+    
+    @Override
+    public void done (boolean success, MyClass result) {
+        // do something with the result
+    }
+});
 ```
+
+
+*Note:* If you expect any other HTTP response code than `200 OK` when your request has returned successfully, you should specify it via the optional parameter `expectedResponseCode` available on every method. This is because otherwise, `JsonHttpClient` expects the response code to be `200` and aborts parsing if it is anything else.
+
+
 
 ## Usage of `HttpResponseCodeManager`
 
 Say you want to execute a specific action every time a HTTP request by `JsonHttpClient` returns with a specific response code. For example, you might want to switch to a special activity every time the response code `403 Forbidden` is received.
 
-`HttpResponseCodeManager` allows you to do this by registering event listeners for response codes. It is really simple to use, just take a look at this example:
+`HttpResponseCodeManager` allows you to do this by registering global event listeners for response codes. It is really simple to use, just take a look at this example:
 
 ```java
 HttpResponseCodeManager manager = HttpResponseCodeManager.getInstance();
 
-// blabla
+manager.addListener (403, new HttpResponseCodeManager.HttpResponseCodeListener () {
+
+    @Override
+    public void responseCodeOccurred () {
+        // do something
+    }
+});
 ```
