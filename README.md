@@ -39,6 +39,11 @@ This library requires Google's Gson (https://github.com/google/gson) and Apache'
 - `uploadFileUsingPutAndGetObject` to upload a file to the specified url via a PUT request, submitting the specified data, and receive a Java object
 
 - `uploadFileUsingPutAndGetList` to upload a file to the specified url via a PUT request, submitting the specified data, and receive a list of Java objects
+- 
+
+### Debugging
+
+If you're interested in getting some more insight, pass `true` as the (optional) second parameter to `JsonHttpClient`'s constructor. It will then log all response codes and response texts.
 
 ### Examples
 
