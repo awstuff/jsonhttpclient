@@ -42,6 +42,14 @@ public class JsonHttpClient<T> {
 	private static final String HTTP_METHOD_POST = "POST";
 	private static final String HTTP_METHOD_PUT = "PUT";
 	private static final String HTTP_METHOD_DELETE = "DELETE";
+	private static final String[] XSSI_PREFIXES = {
+		"for(;;);",
+		"while(1);",
+		")]}',\n",
+		")]}',\\n",
+		"throw 1; <dont be evil>",
+		"throw 1;"
+	};
 
 	private Class<T> target;
 	private boolean debug;
@@ -1141,7 +1149,16 @@ public class JsonHttpClient<T> {
 		}
 
 		if (JsonHttpClient.this.debug) {
-			Log.d("JsonHttpClient", "Response Text: " + responseText);
+			Log.d("JsonHttpClient", "Raw response text: " + responseText);
+		}
+
+		if (!responseIsEmpty) {
+			for (String prefix : JsonHttpClient.XSSI_PREFIXES) {	// strip possible xssi protection prefix
+				if (responseText.startsWith (prefix)) {
+					responseText = responseText.substring (prefix.length ());
+					break;
+				}
+			}
 		}
 
 		if (callback != null) {
