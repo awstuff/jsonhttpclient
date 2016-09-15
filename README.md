@@ -8,6 +8,8 @@ This library consists of two Java classes: `JsonHttpClient` for executing HTTP(S
 
 You could use `HttpResponseCodeManager` individually (although that would not make much sense). `JsonHttpClient` cannot be used individually, since it depends on `HttpResponseCodeManager`.
 
+`JsonHttpClient` includes support for commonly used XSSI protection prefixes in JSON responses and strips them automatically, if they are used.
+
 This library requires Google's Gson (https://github.com/google/gson) and Apache's HttpComponents (https://hc.apache.org/). You can simply add these dependencies to your project's `build.gradle` file.
 
 ## Usage of `JsonHttpClient`
