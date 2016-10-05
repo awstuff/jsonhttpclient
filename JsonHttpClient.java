@@ -10,6 +10,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import javax.net.ssl.HttpsURLConnection;
@@ -747,6 +748,247 @@ public class JsonHttpClient<T> {
 	}
 
 	/**
+	 * Upload the specified file as part of a POST request containing the specified data to the specified url and receive an object of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPostAndGetObject (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, final @Nullable Callback<T> callback) {
+
+		this.uploadFileUsingPostAndGetObject(url, file, fileFieldName, payload, null, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a POST request containing the specified data to the specified url and receive an object of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPostAndGetObject (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, int expectedResponseCode, final @Nullable Callback<T> callback) {
+
+		this.uploadFileUsingPostAndGetObject (url, file, fileFieldName, payload, null, expectedResponseCode, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a POST request containing the specified data to the specified url and receive an object of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param headers map to send as additional HTTP headers
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPostAndGetObject (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, @Nullable Map<String, String> headers, final @Nullable Callback<T> callback) {
+
+		this.uploadFileUsingPostAndGetObject(url, file, fileFieldName, payload, headers, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a POST request containing the specified data to the specified url and receive an object of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param headers map to send as additional HTTP headers
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPostAndGetObject (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, @Nullable Map<String, String> headers, int expectedResponseCode, final @Nullable Callback<T> callback) {
+
+		this.uploadAndRequestObject (JsonHttpClient.HTTP_METHOD_POST, url, file, fileFieldName, payload, headers, expectedResponseCode, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a POST request containing the specified data to the specified url and receive a list of objects of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPostAndGetList (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, final @Nullable Callback<List<T>> callback) {
+
+		this.uploadFileUsingPostAndGetList(url, file, fileFieldName, payload, null, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a POST request containing the specified data to the specified url and receive a list of objects of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPostAndGetList (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, int expectedResponseCode, final @Nullable Callback<List<T>> callback) {
+
+		this.uploadFileUsingPostAndGetList (url, file, fileFieldName, payload, null, expectedResponseCode, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a POST request containing the specified data to the specified url and receive a list of objects of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param headers map to send as additional HTTP headers
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPostAndGetList (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, @Nullable Map<String, String> headers, final @Nullable Callback<List<T>> callback) {
+
+		this.uploadFileUsingPostAndGetList(url, file, fileFieldName, payload, headers, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a POST request containing the specified data to the specified url and receive a list of objects of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param headers map to send as additional HTTP headers
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPostAndGetList (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, @Nullable Map<String, String> headers, int expectedResponseCode, final @Nullable Callback<List<T>> callback) {
+
+		this.uploadAndRequestList (JsonHttpClient.HTTP_METHOD_POST, url, file, fileFieldName, payload, headers, expectedResponseCode, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a PUT request containing the specified data to the specified url and receive an object of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPutAndGetObject (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, final @Nullable Callback<T> callback) {
+
+		this.uploadFileUsingPutAndGetObject(url, file, fileFieldName, payload, null, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a PUT request containing the specified data to the specified url and receive an object of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPutAndGetObject (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, int expectedResponseCode, final @Nullable Callback<T> callback) {
+
+		this.uploadFileUsingPutAndGetObject (url, file, fileFieldName, payload, null, expectedResponseCode, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a PUT request containing the specified data to the specified url and receive an object of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param headers map to send as additional HTTP headers
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPutAndGetObject (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, @Nullable Map<String, String> headers, final @Nullable Callback<T> callback) {
+
+		this.uploadFileUsingPutAndGetObject(url, file, fileFieldName, payload, headers, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a PUT request containing the specified data to the specified url and receive an object of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param headers map to send as additional HTTP headers
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPutAndGetObject (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, @Nullable Map<String, String> headers, int expectedResponseCode, final @Nullable Callback<T> callback) {
+
+		this.uploadAndRequestObject (JsonHttpClient.HTTP_METHOD_PUT, url, file, fileFieldName, payload, headers, expectedResponseCode, callback);
+	}
+
+
+	/**
+	 * Upload the specified file as part of a PUT request containing the specified data to the specified url and receive a list of objects of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPutAndGetList (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, final @Nullable Callback<List<T>> callback) {
+
+		this.uploadFileUsingPutAndGetList(url, file, fileFieldName, payload, null, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a PUT request containing the specified data to the specified url and receive a list of objects of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPutAndGetList (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, int expectedResponseCode, final @Nullable Callback<List<T>> callback) {
+
+		this.uploadFileUsingPutAndGetList (url, file, fileFieldName, payload, null, expectedResponseCode, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a PUT request containing the specified data to the specified url and receive a list of objects of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param headers map to send as additional HTTP headers
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPutAndGetList (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, @Nullable Map<String, String> headers, final @Nullable Callback<List<T>> callback) {
+
+		this.uploadFileUsingPutAndGetList(url, file, fileFieldName, payload, headers, HttpURLConnection.HTTP_OK, callback);
+	}
+
+	/**
+	 * Upload the specified file as part of a PUT request containing the specified data to the specified url and receive a list of objects of type T
+	 *
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param headers map to send as additional HTTP headers
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	public void uploadFileUsingPutAndGetList (@NonNull String url, @NonNull byte[] file, @NonNull String fileFieldName, @Nullable Map<String, String> payload, @Nullable Map<String, String> headers, int expectedResponseCode, final @Nullable Callback<List<T>> callback) {
+
+		this.uploadAndRequestList (JsonHttpClient.HTTP_METHOD_PUT, url, file, fileFieldName, payload, headers, expectedResponseCode, callback);
+	}
+
+	/**
 	 * Request an object from a web resource, optionally sending the specified payload
 	 *
 	 * @param method HTTP method to use
@@ -781,11 +1023,34 @@ public class JsonHttpClient<T> {
 	 */
 	private void uploadAndRequestObject (String method, String url, File file, String fileFieldName, Map<String, String> payload, Map<String, String> headers, int expectedResponseCode, final Callback<T> callback) {
 
-		this.uploadRequestRaw (method, url, file, fileFieldName, payload, headers, expectedResponseCode, new InternalCallback () {
+		this.uploadRequestRaw (method, url, file, null, fileFieldName, payload, headers, expectedResponseCode, new InternalCallback () {
 
 			@Override
 			public void done (boolean success, String responseText) {
 			JsonHttpClient.this.parseObject (success, responseText, callback);
+			}
+		});
+	}
+
+	/**
+	 * Upload a file to a web resource and request an object, optionally sending the specified payload
+	 *
+	 * @param method HTTP method to use
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param headers map to send as additional HTTP headers
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	private void uploadAndRequestObject (String method, String url, byte[] file, String fileFieldName, Map<String, String> payload, Map<String, String> headers, int expectedResponseCode, final Callback<T> callback) {
+
+		this.uploadRequestRaw (method, url, null, file, fileFieldName, payload, headers, expectedResponseCode, new InternalCallback () {
+
+			@Override
+			public void done (boolean success, String responseText) {
+				JsonHttpClient.this.parseObject (success, responseText, callback);
 			}
 		});
 	}
@@ -823,11 +1088,33 @@ public class JsonHttpClient<T> {
 	 */
 	private void uploadAndRequestList (String method, String url, File file, String fileFieldName, Map<String, String> payload, Map<String, String> headers, int expectedResponseCode, final Callback<java.util.List<T>> callback) {
 
-		this.uploadRequestRaw (method, url, file, fileFieldName, payload, headers, expectedResponseCode, new InternalCallback () {
+		this.uploadRequestRaw (method, url, file, null, fileFieldName, payload, headers, expectedResponseCode, new InternalCallback () {
 
 			@Override
 			public void done (boolean success, String responseText) {
 			JsonHttpClient.this.parseList (success, responseText, callback);
+			}
+		});
+	}
+
+	/**
+	 * Upload a file to a web resource and request a list of objects, optionally sending the specified payload
+	 *
+	 * @param method HTTP method to use
+	 * @param url the web resource's url
+	 * @param file the file to upload
+	 * @param fileFieldName the name under which the file can be accessed by the web resource
+	 * @param payload map to send as request data
+	 * @param expectedResponseCode the expected HTTP response code
+	 * @param callback callback implementation, can be null
+	 */
+	private void uploadAndRequestList (String method, String url, byte[] file, String fileFieldName, Map<String, String> payload, Map<String, String> headers, int expectedResponseCode, final Callback<java.util.List<T>> callback) {
+
+		this.uploadRequestRaw (method, url, null, file, fileFieldName, payload, headers, expectedResponseCode, new InternalCallback () {
+
+			@Override
+			public void done (boolean success, String responseText) {
+				JsonHttpClient.this.parseList (success, responseText, callback);
 			}
 		});
 	}
@@ -965,13 +1252,14 @@ public class JsonHttpClient<T> {
 	 * @param method HTTP method to use
 	 * @param url the web resource's url
 	 * @param file the file to upload
+	 * @param fileAsByteArray the file to upload as byte array. Replaces the parameter file if set.
 	 * @param fileFieldName the name under which the file can be accessed by the web resource
 	 * @param payload map to send as request data
 	 * @param headers map to send as additional HTTP headers
 	 * @param expectedResponseCode the expected HTTP response code
 	 * @param callback callback implementation, can be null
 	 */
-	private void uploadRequestRaw (final String method, final String url, final File file, final String fileFieldName, final Map<String, String> payload, final Map<String, String> headers, final int expectedResponseCode, final InternalCallback callback) {
+	private void uploadRequestRaw (final String method, final String url, final File file, final byte[] fileAsByteArray, final String fileFieldName, final Map<String, String> payload, final Map<String, String> headers, final int expectedResponseCode, final InternalCallback callback) {
 
 		class UploadRequestTask extends AsyncTask<Void, Void, Void> {
 
@@ -984,7 +1272,12 @@ public class JsonHttpClient<T> {
 				try {
 					MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create ();
 					entityBuilder.setMode (HttpMultipartMode.BROWSER_COMPATIBLE);
-					entityBuilder.addPart (fileFieldName, new FileBody (file));
+
+					if (fileAsByteArray != null) {	// byte array is priority 1
+						entityBuilder.addPart (fileFieldName, new ByteArrayBody (fileAsByteArray, fileFieldName));
+					} else {
+						entityBuilder.addPart (fileFieldName, new FileBody (file));
+					}
 
 					URL urlObj = new URL (url);
 
