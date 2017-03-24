@@ -19,6 +19,7 @@ import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,9 @@ public class JsonHttpClient<T> {
 
 	private static final int REQUEST_TIMEOUT = 360000;	// pretty high, TODO maybe use a more realistic value
 	private static final String CHARSET = "UTF-8";
+	private static final Charset CHARSET_OBJ = Charset.forName(JsonHttpClient.CHARSET);
+	private static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
+	private static final ContentType CONTENT_TYPE_TEXT_PLAIN_OBJ = ContentType.create(JsonHttpClient.CONTENT_TYPE_TEXT_PLAIN, JsonHttpClient.CHARSET_OBJ);
 	private static final String HTTP_METHOD_GET = "GET";
 	private static final String HTTP_METHOD_POST = "POST";
 	private static final String HTTP_METHOD_PUT = "PUT";
@@ -1287,7 +1291,7 @@ public class JsonHttpClient<T> {
 
 					if (payload != null) {	// append the data payload
 						for (Map.Entry<String, String> entry : payload.entrySet ()) {
-							entityBuilder.addPart (entry.getKey (), new StringBody (entry.getValue (), ContentType.TEXT_PLAIN));
+							entityBuilder.addPart (entry.getKey (), new StringBody (entry.getValue (), JsonHttpClient.CONTENT_TYPE_TEXT_PLAIN_OBJ));
 						}
 					}
 
