@@ -9,7 +9,6 @@ import java.util.Set;
 /**
  * A class for registering event listeners for certain HTTP response codes.
  * For use with JsonHttpClient
- * <p/>
  * Copyright 2016 Adrian Wirth
  * Released under the MIT license
  */
