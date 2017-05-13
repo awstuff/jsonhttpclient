@@ -80,7 +80,7 @@ public class JsonHttpClient<T> {
     private static final String HTTP_METHOD_DELETE = "DELETE";
 
     /**
-     * The supported XSSI protection prefixed that are stripped off response texts automatically
+     * The supported XSSI protection prefixes that are stripped off response texts automatically
      */
     private static final String[] XSSI_PREFIXES = {
             "for(;;);",
