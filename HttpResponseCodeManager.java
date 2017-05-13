@@ -12,8 +12,6 @@ import java.util.Set;
  * Copyright 2017 Adrian Wirth
  * Released under the MIT license
  */
-
-
 public class HttpResponseCodeManager {
 
 	private static HttpResponseCodeManager instance = null;	// singleton instance
