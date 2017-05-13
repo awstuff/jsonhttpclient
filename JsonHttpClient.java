@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * A class for executing HTTP GET and POST requests and uploading files.
  * Maps returned JSON values to objects.
- * Copyright 2016 Adrian Wirth
+ * Copyright 2017 Adrian Wirth
  * Released under the MIT license
  *
  * @param <T> the type of the returned object
