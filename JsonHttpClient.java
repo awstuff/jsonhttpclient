@@ -32,7 +32,6 @@ import java.util.Map;
  *
  * @param <T> the type of the returned object
  */
-
 public class JsonHttpClient<T> {
 
 	private static final int REQUEST_TIMEOUT = 360000;	// pretty high, TODO maybe use a more realistic value
