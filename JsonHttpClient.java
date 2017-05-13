@@ -27,9 +27,6 @@ import java.util.Map;
 /**
  * A class for executing HTTP GET and POST requests and uploading files.
  * Maps returned JSON values to objects.
- * <p/>
- * Requires Google's Gson and Apache's HttpComponents.
- * <p/>
  * Copyright 2016 Adrian Wirth
  * Released under the MIT license
  *
